@@ -8,8 +8,6 @@ public class Fraction implements Comparable<Fraction>{
         Fraction f;
         Stack<String> ops = new Stack<String>(); //stack of operators
         Stack<Fraction> vals = new Stack<Fraction>(); //stack of values
-        //Stack<Fraction> fracs = new Stack<Fraction>(); //stack of fractions
-        //Stack<String> whattype = new Stack<String>(); // stack that tells us what type is the most previous thing pushed (int or fraction)
         Fraction a = new Fraction(1, 6);
         Fraction b = new Fraction(2, 6);
         Fraction c = new Fraction(3, 6);
@@ -34,32 +32,25 @@ public class Fraction implements Comparable<Fraction>{
         System.out.println(test2);
         System.out.println(test3);
         while (!StdIn.isEmpty()){
-            //System.out.println(0);
             //Read Token, push into operators stack if it is an operator
             String s =StdIn.readString();
 
             if(s.equals("+")){
                 ops.push(s);
-                //System.out.println(1);
             }
             else if(s.equals("-")){
                 ops.push(s);
-                //System.out.println(2);
             }
             else if(s.equals("*")){
                 ops.push(s);
-                //System.out.println(3);
             }
             else if(s.equals("/")){
                 ops.push(s);
-                //System.out.println(4);
             }
             else if(s.equals("sqrt")){
                 ops.push(s);
-                //System.out.println(5);
             }
             else if (s.equals("(")){
-                //System.out.println(6);
 
             }
             else if (s.equals("=")){
@@ -68,39 +59,26 @@ public class Fraction implements Comparable<Fraction>{
             else if(s.equals(")")){ //if you find a right parenthesis, do calculations as needed
                 String op = ops.pop();
                 f = vals.pop();
-                //Fraction f = fracs.pop();
-                //String wt = whattype.pop();
                 if(op.equals("/")) { //two possibilities when meeting / - create a fraction or compute two fraction
                     f = vals.pop().divide(f);
-                    //vals.push(f);
-                    //System.out.println(7);
                     vals.push(f);
-                    //f.toString();
                     
                     
                 }
                 if(op.equals("+")){
                     f = vals.pop().add(f);
-                    //System.out.println(8);
                     vals.push(f);
-                    //f.toString();
                 }
                 if(op.equals("-")){
                     f = vals.pop().subtract(f);
-                    //System.out.println(9);
                     vals.push(f);
-                    //f.toString();
                 }
                 if(op.equals("*")){
                     f = vals.pop().multiply(f);
-                    //vals.push(f);
-                    //System.out.println(10);
-                    //f.toString(f);
                     vals.push(f);
-                    //f.toString();
                 }
                 if (op.equals("=")){
-                    //f = vals.pop().equals(f);
+
                 }
                 BigInteger gcd = f.n.gcd(f.d);
                 f.n = f.n.divide(gcd);
@@ -111,18 +89,15 @@ public class Fraction implements Comparable<Fraction>{
                 } else {
                     String string = f.toString();
                     System.out.println(string);
-                //vals.push(v);
                 }            
             }
             
-            else if(!(s.equals("(")||s.equals(")")||s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/") || s.equals("="))){ //if it's not a symbol it's an int
-                //StdOut.println(s);
+            else if(!(s.equals("(")||s.equals(")")||s.equals("+")||s.equals("-")||
+            s.equals("*")||s.equals("/") || s.equals("="))){ //if it's not a symbol it's an int
                 BigInteger i = new BigInteger(s);
                 Fraction h = new Fraction(i, BigInteger.valueOf(1));
-                vals.push(h); //how to convert string into fraction? Najpierw zamienić oddzielnie górę i dół na BiInteger i z tego stworzyć fraction?
-                //whattype.push("frac"); //ale jak to zrobić? 
-                //System.out.println(11);
-                //System.out.println(vals.pop());
+                vals.push(h); 
+
                  
             }
             
@@ -179,7 +154,6 @@ public class Fraction implements Comparable<Fraction>{
         return new Fraction(this.n.multiply(f.d), this.d.multiply(f.n));
     }
     public boolean equals(Object o){ //test11
-        // Object o = (BigInteger.valueof(n), BigInteger.valueof(d));  
         Fraction f = (Fraction)o;
         if(this.n.equals(f.n) && this.d.equals(f.d)){
             return true;
@@ -233,40 +207,19 @@ public class Fraction implements Comparable<Fraction>{
 
     public int compareTo(Fraction f){
         if (this.n.multiply(f.d).compareTo(this.d.multiply(f.n)) == 0){ //same
-            //System.out.println("0");
             return 0;
         }
         else if (this.n.multiply(f.d).compareTo(this.d.multiply(f.n)) == -1){ //smaller
-            //System.out.println("-1");
             return -1;
         }
         else{ //bigger
-            //System.out.println("1");
             return 1;
         
             
         }
     }
 }
-    /*public boolean equals(Fraction f){
-        if (this.n == f.n && this.d == f.d){
-            System.out.println("true");
-            return true;
-        } else {
-            System.out.println("false");
-            return false;
-        }
-    }
-
-    /* public boolean lessThan(Fraction f){
-        if (this.n.compareTo(f.n)  && this.d.compareTo(f.d)){
-            System.out.println("true");
-            return true;
-        } else {
-            System.out.println("false");
-            return false;
-        }
-    } */
+   
 
 
 
